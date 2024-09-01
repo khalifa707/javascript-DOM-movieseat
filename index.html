@@ -3,31 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Booking Movie seat</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
 <div class="movie-container">
     <label>pick a movie</label>
-    <option value="12">Deadpool & Wolverine($10)</option>
-    <option value="10">Alien: Romulus($10)</option>
-    <option value="9">Inside Out 2($9)</option>
-    <option value="8">It Ends With Us($8)</option>
+    <select id="movie">
+        <option value="12">Deadpool & Wolverine($10)</option>
+        <option value="10">Alien: Romulus($10)</option>
+        <option value="9">Inside Out 2($9)</option>
+        <option value="8">It Ends With Us($8)</option>
+    </select>
+
 </div>
 <ul class="showcase">
     <li>
-        <div class="seat"></div>
+        <div class="seats"></div>
         <small>N/A</small>
     </li>
     <li>
-        <div class="seat selected"></div>
+        <div class="seats selected"></div>
         <small>selected</small>
     </li>
     <li>
-        <div class="seat occupied"></div>
+        <div class="seats occupied"></div>
         <small>occupied</small>
     </li>
 </ul>
 <div class="container">
-    <div class="screen">
+    <div class="screen"></div>
         <div class="rows">
             <div class="seats"></div>
             <div class="seats"></div>
@@ -88,7 +96,6 @@
             <div class="seats occupied"></div>
             <div class="seats occupied"></div>
         </div>
-    </div>
 </div>
 <p class="text">you have selected <span id="count">0</span> seats for a price of $
     <span id="total">0</span></p>
