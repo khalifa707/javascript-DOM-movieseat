@@ -1,27 +1,46 @@
 const container = document.querySelector('.container');
-const seats = document.querySelectorAll('.rows .seats:not(.occupied)');
+const seats = document.querySelectorAll('.rows .seats'); // Select all seats
 const count = document.getElementById('count');
 const total = document.getElementById('total');
 const movieSelect = document.getElementById('movie');
-let ticketPrice = +movieSelect.value;
+let ticketPrice = +movieSelect.value; // Set initial ticket price
+
+const setMovieData = (movieIndex, moviePrice) => {
+    localStorage.setItem('movieIndex', movieIndex);
+    localStorage.setItem('moviePrice', moviePrice);
+};
 
 function updateSelectedCount() {
     const selectedSeats = document.querySelectorAll('.rows .seats.selected');
     const selectedSeatsCount = selectedSeats.length;
 
-    // Convert numbers to strings
+    // Map the indexes of selected seats
+    const seatsIndex = [...selectedSeats].map(seat => {
+        return [...seats].indexOf(seat); // Get the index of each selected seat within the 'seats' NodeList
+    });
+
+    localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
+
+    // Update the UI with the number of selected seats and total price
     count.innerText = String(selectedSeatsCount);
     total.innerText = String(selectedSeatsCount * ticketPrice);
 }
-//movie select event
-movieSelect.addEventListener('change', e=>{
-    ticketPrice = e.target.value;
-    updateSelectedCount();
+
+// Movie select event
+movieSelect.addEventListener('change', e => {
+    ticketPrice = +e.target.value; // Convert the selected movie's value to a number
+    const movieIndex = e.target.selectedIndex; // Get the index of the selected movie
+
+    // Save movie data to localStorage
+    setMovieData(movieIndex, ticketPrice);
+
+    updateSelectedCount(); // Update the seat count and total price after movie change
 });
-//seats click event
+
+// Seats click event
 container.addEventListener('click', (e) => {
-    if (e.target.classList.contains('seats') &&! e.target.classList.contains('occupied')) {
+    if (e.target.classList.contains('seats') && !e.target.classList.contains('occupied')) {
         e.target.classList.toggle('selected');
         updateSelectedCount();
     }
-})
+});
